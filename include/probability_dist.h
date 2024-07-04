@@ -28,22 +28,28 @@ namespace pgm{
             }
         
         protected:
-            node_ptr n;
+            node_ptr node;
     };
 
     class MarginalProbabilityDistribution : public ProbabilityDistribution{
         private:
             std::vector<float> MPD;
+            node_ptr node;
 
         public:
             MarginalProbabilityDistribution();
-            
+            MarginalProbabilityDistribution(node_ptr n);
+
             std::vector<float>& getMPD();
             void reset(node_ptr n);
+            void reset();
 
             static ProbabilityDistributionType pdType;
             std::ostream& print(std::ostream &out) override;
     };
+
+
+
 
     class ConditionalProbabilityDistribution : public ProbabilityDistribution {
         private:

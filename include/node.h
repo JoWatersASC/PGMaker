@@ -28,8 +28,6 @@ namespace pgm{
             std::string getName();
             std::vector<std::string>& getValues();
 
-            // void print();
-
             int state;
     };
 }

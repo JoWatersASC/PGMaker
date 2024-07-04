@@ -14,7 +14,7 @@ namespace pgm{
             Network();
 
             void update();
-            std::vector<Node*> parents(Node* n);
+            std::vector<node_ptr> parents(node_ptr n);
     };
 }
 
