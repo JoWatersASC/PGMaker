@@ -11,11 +11,8 @@ namespace pgm{
         state = -1;
     }
 
-    std::string Node::getName(){
-        return name;
-    }
-
-    std::vector<std::string>& Node::getValues(){
-        return values;
-    }
+    std::string                  Node::getName()      { return name; }
+    std::unordered_set<node_ptr> Node::getChildren()  { return children; }
+    std::vector<std::string>&    Node::getValues()    { return values; }
+    pDist_ptr                    Node::getDefinition(){ return definition; }
 }

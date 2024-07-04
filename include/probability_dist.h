@@ -4,18 +4,8 @@
 #include<iostream>
 #include<map>
 #include<vector>
-#include<memory>
 
-namespace pgm{
-    class Node;
-    typedef std::shared_ptr<Node> node_ptr;
-    
-    enum class ProbabilityDistributionType{
-        MARGINAL,
-        CONDITIONAL
-    };
-}
-
+#include"forward_dec.h"
 namespace pgm{
 
     class ProbabilityDistribution {
@@ -43,9 +33,9 @@ namespace pgm{
             std::vector<float>& getMPD();
             void reset(node_ptr n);
             void reset();
-
-            static ProbabilityDistributionType pdType;
+            
             std::ostream& print(std::ostream &out) override;
+            const static ProbabilityDistributionType pdType = ProbabilityDistributionType::MARGINAL;
     };
 
 
@@ -62,8 +52,8 @@ namespace pgm{
             std::map<std::vector<int>, std::vector<float>>& getCPD();
             void reset(std::vector<node_ptr> dependencyList, node_ptr n);
 
-            static ProbabilityDistributionType pdType;
             std::ostream& print(std::ostream &out) override;
+            const static ProbabilityDistributionType pdType = ProbabilityDistributionType::CONDITIONAL;
     };
 }
 

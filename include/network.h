@@ -8,13 +8,18 @@
 namespace pgm{
     class Network{
         private:
-            std::vector<node_ptr> nodeList;
+            std::string                  name;
+            std::unordered_set<node_ptr> nodes;
         
         public:
             Network();
+            Network(std::string name);
+            Network(std::unordered_set<node_ptr> nodeList);
 
-            void update();
-            std::vector<node_ptr> parents(node_ptr n);
+            void updateNetwork();
+            void updateNode(node_ptr n);
+
+            std::unordered_set<node_ptr> getParents(node_ptr n) noexcept;
     };
 }
 

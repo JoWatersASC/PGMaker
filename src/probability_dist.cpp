@@ -29,9 +29,7 @@ namespace pgm{
 
         MPD.push_back(prob);
     }
-    void MarginalProbabilityDistribution::reset() {
-        return reset(node);
-    }
+    void MarginalProbabilityDistribution::reset() { return reset(node); }
 
     std::ostream& MarginalProbabilityDistribution::print(std::ostream& out) {
         int width = 0;
