@@ -1,18 +1,20 @@
 #ifndef PROBDIST_H
 #define PROBDIST_H
 
-#include<iostream>
 #include<map>
-#include<vector>
-
 #include"forward_dec.h"
 namespace pgm{
 
     class ProbabilityDistribution {
         public:
+            ProbabilityDistribution();
             virtual ~ProbabilityDistribution() = default;
-
             virtual std::ostream& print(std::ostream &out) = 0;
+            virtual void reset() = 0;
+            
+            void     setNode(node_ptr n);
+            node_ptr getNode();
+
             friend std::ostream& operator<<(std::ostream& out, ProbabilityDistribution& pDist){
                 return pDist.print(out);
             }
@@ -24,17 +26,19 @@ namespace pgm{
     class MarginalProbabilityDistribution : public ProbabilityDistribution{
         private:
             std::vector<float> MPD;
-            node_ptr node;
+            // node_ptr node;
 
         public:
             MarginalProbabilityDistribution();
             MarginalProbabilityDistribution(node_ptr n);
 
             std::vector<float>& getMPD();
-            void reset(node_ptr n);
-            void reset();
+            
+            //void reset();
+            void reset() override;
             
             std::ostream& print(std::ostream &out) override;
+
             const static ProbabilityDistributionType pdType = ProbabilityDistributionType::MARGINAL;
     };
 
@@ -51,8 +55,10 @@ namespace pgm{
             
             std::map<std::vector<int>, std::vector<float>>& getCPD();
             void reset(std::vector<node_ptr> dependencyList, node_ptr n);
+            void reset() override;
 
             std::ostream& print(std::ostream &out) override;
+
             const static ProbabilityDistributionType pdType = ProbabilityDistributionType::CONDITIONAL;
     };
 }

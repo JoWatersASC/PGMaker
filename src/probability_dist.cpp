@@ -6,19 +6,32 @@
 typedef std::map<std::vector<int>, std::vector<float>> cpd;
 
 //______________________________________________
+//Raw PD
+//______________________________________________
+namespace pgm{
+    ProbabilityDistribution::ProbabilityDistribution() : node(nullptr) {}
+
+    void ProbabilityDistribution::setNode(node_ptr n) {
+        node = n;
+        reset();
+    }
+    node_ptr ProbabilityDistribution::getNode() { return node; }
+}
+
+
+//______________________________________________
 //Marginal PD
 //______________________________________________
 namespace pgm{
-    MarginalProbabilityDistribution::MarginalProbabilityDistribution() : node(nullptr){}
-    MarginalProbabilityDistribution::MarginalProbabilityDistribution(node_ptr no) : node(no) {}
+    MarginalProbabilityDistribution::MarginalProbabilityDistribution() {}
+    MarginalProbabilityDistribution::MarginalProbabilityDistribution(node_ptr n) { node = n; }
 
-    std::vector<float>& MarginalProbabilityDistribution::getMPD(){
-        return MPD;
-    }
+    std::vector<float>& MarginalProbabilityDistribution::getMPD() { return MPD; }
+    // node_ptr            MarginalProbabilityDistribution::getNode(){ return node; }
 
-    void MarginalProbabilityDistribution::reset(node_ptr n){
+    void MarginalProbabilityDistribution::reset(){
         MPD.clear();
-        int size = n->getValues().size();
+        int size = node->getValues().size();
         float whole = 1.0f;
         float prob = whole / size;
 
@@ -29,7 +42,7 @@ namespace pgm{
 
         MPD.push_back(prob);
     }
-    void MarginalProbabilityDistribution::reset() { return reset(node); }
+    //void MarginalProbabilityDistribution::reset() { return reset(node); }
 
     std::ostream& MarginalProbabilityDistribution::print(std::ostream& out) {
         int width = 0;
@@ -50,13 +63,14 @@ namespace pgm{
 //______________________________________________
 //Conditional PD
 //______________________________________________
-namespace pgm{
-    ConditionalProbabilityDistribution::ConditionalProbabilityDistribution(){}
+namespace pgm {
+    ConditionalProbabilityDistribution::ConditionalProbabilityDistribution() {}
 
-    cpd& ConditionalProbabilityDistribution::getCPD(){
+    cpd& ConditionalProbabilityDistribution::getCPD() {
         return CPD;
     }
-    void ConditionalProbabilityDistribution::reset(std::vector<node_ptr> dependencyList, node_ptr n){}
+    void ConditionalProbabilityDistribution::reset(std::vector<node_ptr> dependencyList, node_ptr n) {}
+    void ConditionalProbabilityDistribution::reset() {}
 
     std::ostream& ConditionalProbabilityDistribution::print(std::ostream& out) {
         return out;

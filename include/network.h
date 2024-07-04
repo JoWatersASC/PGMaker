@@ -1,7 +1,6 @@
 #ifndef NETWORK_H
 #define NETWORK_H
 
-#include<vector>
 #include"node.h"
 #include"probability_dist.h"
 

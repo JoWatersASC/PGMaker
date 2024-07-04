@@ -10,9 +10,13 @@ namespace pgm{
     }
 
     std::unordered_set<node_ptr> Network::getParents(node_ptr n) noexcept{
-        if(!nodes.count(n)){
-            std::string error_message = "Node " + n->getName() + " is not in network " + name;
-            throw std::runtime_error(error_message);
+        try{
+            if(!nodes.count(n)){
+                std::string error_message = "Node " + n->getName() + " is not in network " + name;
+                throw std::runtime_error(error_message);
+            }
+        } catch(const std::exception& e){
+            std::cerr << "Caught exception: " << e.what() << std::endl;
         }
 
         std::unordered_set<node_ptr> output;
