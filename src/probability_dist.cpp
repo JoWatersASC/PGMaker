@@ -9,7 +9,8 @@ typedef std::map<std::vector<int>, std::vector<float>> cpd;
 //Raw PD
 //______________________________________________
 namespace pgm{
-    ProbabilityDistribution::ProbabilityDistribution() : node(nullptr) {}
+    ProbabilityDistribution::ProbabilityDistribution() {}
+    ProbabilityDistribution::ProbabilityDistribution(node_ptr n) : node(n) {}
 
     void ProbabilityDistribution::setNode(node_ptr n) {
         node = n;
@@ -24,10 +25,9 @@ namespace pgm{
 //______________________________________________
 namespace pgm{
     MarginalProbabilityDistribution::MarginalProbabilityDistribution() {}
-    MarginalProbabilityDistribution::MarginalProbabilityDistribution(node_ptr n) { node = n; }
+    MarginalProbabilityDistribution::MarginalProbabilityDistribution(node_ptr n) { n->setDefinition(shared_from_this()); }
 
     std::vector<float>& MarginalProbabilityDistribution::getMPD() { return MPD; }
-    // node_ptr            MarginalProbabilityDistribution::getNode(){ return node; }
 
     void MarginalProbabilityDistribution::reset(){
         MPD.clear();
@@ -42,9 +42,10 @@ namespace pgm{
 
         MPD.push_back(prob);
     }
-    //void MarginalProbabilityDistribution::reset() { return reset(node); }
 
     std::ostream& MarginalProbabilityDistribution::print(std::ostream& out) {
+        out << node->getName() << std::endl;
+
         int width = 0;
         std::vector<std::string> values = node->getValues();
 

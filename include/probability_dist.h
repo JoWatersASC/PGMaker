@@ -5,9 +5,10 @@
 #include"forward_dec.h"
 namespace pgm{
 
-    class ProbabilityDistribution {
+    class ProbabilityDistribution : public std::enable_shared_from_this<ProbabilityDistribution> {
         public:
             ProbabilityDistribution();
+            ProbabilityDistribution(node_ptr n);
             virtual ~ProbabilityDistribution() = default;
             virtual std::ostream& print(std::ostream &out) = 0;
             virtual void reset() = 0;
@@ -26,7 +27,6 @@ namespace pgm{
     class MarginalProbabilityDistribution : public ProbabilityDistribution{
         private:
             std::vector<float> MPD;
-            // node_ptr node;
 
         public:
             MarginalProbabilityDistribution();

@@ -16,9 +16,14 @@ namespace pgm{
             Network(std::unordered_set<node_ptr> nodeList);
 
             void updateNetwork();
+            void addNode();
+            void addNode(node_ptr);
             void updateNode(node_ptr n);
 
+            std::string&                 getName();
             std::unordered_set<node_ptr> getParents(node_ptr n) noexcept;
+
+            std::ostream& print(std::ostream& out);
     };
 }
 

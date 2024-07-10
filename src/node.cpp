@@ -4,10 +4,12 @@ namespace pgm{
     Node::Node() {
         name = "Variable";
         values = { "true", "false" };
+        std::shared_ptr<MarginalProbabilityDistribution> m = std::make_shared<MarginalProbabilityDistribution>(shared_from_this());
         state = -1;
     }
     Node::Node(std::string nodeName) : name(nodeName) {
         values = { "true", "false" };
+        definition = std::make_shared<MarginalProbabilityDistribution>(shared_from_this());
         state = -1;
     }
 
